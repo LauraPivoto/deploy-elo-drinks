@@ -83,7 +83,7 @@ const MultiStepForm = () => {
         });
         router.push('/finishMessage');
       } catch (err) {
-        alert("Erro ao enviar orçamento. Tente novamente.");
+        alert("Erro ao enviar orçamento. Tente novamente." + err);
       }
     }
   };

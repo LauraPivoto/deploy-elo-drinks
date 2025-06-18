@@ -16,7 +16,6 @@ interface InfoFestaProps {
 const FormStep2: React.FC<InfoFestaProps> = ({
   formData,
   handleChange,
-  handleSubmit,
   showErrors,
 }) => {
   return (

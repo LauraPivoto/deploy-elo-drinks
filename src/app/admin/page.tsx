@@ -49,13 +49,36 @@ export default function AdminPage() {
       setLoading(true);
       try {
         const data = await getBudgets();
-        let budgets: any[] = [];
+        // Defina o tipo esperado para os itens retornados
+        type BudgetAPI = {
+          _id: string;
+          name: string;
+          email: string;
+          phone: string;
+          status?: string;
+          budget?: {
+            num_guests?: number;
+            type?: string;
+            description?: string;
+            package?: "Basic" | "Premium" | "Deluxe";
+            num_barmans?: number;
+            extras?: string[];
+            date?: string;
+          };
+        };
+
+        let budgets: BudgetAPI[] = [];
         if (Array.isArray(data)) {
-          budgets = data;
-        } else if (typeof data === "object" && data !== null && "budgets" in data && Array.isArray((data as any).budgets)) {
-          budgets = (data as any).budgets;
+          budgets = data as BudgetAPI[];
+        } else if (
+          typeof data === "object" &&
+          data !== null &&
+          "budgets" in data &&
+          Array.isArray((data as { budgets: unknown }).budgets)
+        ) {
+          budgets = (data as { budgets: BudgetAPI[] }).budgets;
         }
-        const pedidosMapeados: Pedido[] = budgets.map((item: any) => ({
+        const pedidosMapeados: Pedido[] = budgets.map((item) => ({
           id: item._id,
           nome: item.name,
           email: item.email,
