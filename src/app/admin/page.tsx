@@ -95,6 +95,7 @@ export default function AdminPage() {
         setPedidos(pedidosMapeados);
       } catch (err) {
         setPedidos([]);
+        console.error("Erro ao buscar pedidos:", err);
       }
       setLoading(false);
     }
